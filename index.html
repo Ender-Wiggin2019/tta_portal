@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>login</title>
+<link rel="shortcut icon" href="assets/favicon.ico">
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<!--[if IE]>
+<script src="js/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+		<div class="container demo-1">
+			<div class="content">
+				<div id="large-header" class="large-header">
+					<canvas id="demo-canvas"></canvas>
+					<div class="logo_box">
+						<h3></h3>
+						<form action="/index.html" name="f" method="get" onsubmit="return func()">
+							<div class="input_outer">
+								<span class="u_user"></span>
+								<input id="logname" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入玩家名称" onkeydown="func2()">
+							</div>
+							<div class="mb2"><a class="act-but submit" id = btn href="javascript:;" onclick="func()"style="color: #FFFFFF">查看主页</a></div>
+							<div class="mb2"><p class="act-but-2 submit text-error-phe"></p></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!-- /container -->
+		<script src="js/TweenLite.min.js"></script>
+		<script src="js/EasePack.min.js"></script>
+		<script src="js/rAF.js"></script>
+		<script src="js/demo-1.js"></script>
+		<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script> -->
+		<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
+		<script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script>
+			function func(){
+				var flag = false;
+				$.getJSON('data.json', function(data) {
+					var name = (document.getElementById("logname").value).toLowerCase();
+					$.each(data, function(key, val) {
+						console.log(key);
+						if (key.toLowerCase() == name) {
+							console.log(key);
+							console.log(val);
+							flag = true;
+							window.location.href="https://account.czechgames.com/statistics/2-through-the-ages/"+val.id+"-"+key;
+							return true;
+						}
+					});
+					if (!flag) {
+						$('.text-error-phe').html('如有问题可以与Ender联系<br>（QQ: 209926937）');
+					}
+				});
+				return false;
+			}
+			function func2(){
+				var event=window.event?window.event:event;
+				console.log(event.keyCode)
+				if (event.keyCode==13) func();
+			}
+				// $("#btn").attr("href","index.html?id="+document.getElementById("logname").value);
+		</script>
+	</body>
+</html>
